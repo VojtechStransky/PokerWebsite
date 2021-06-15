@@ -1,0 +1,103 @@
+﻿@page "{handler?}"
+@model Pokerweb.Pages.GamePageModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "HrajPoker - hra";
+}
+@section Styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/GameStyle.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/PartialStyle.css")" type="text/css" />
+}
+@{Layout = "_Layout.cshtml";}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+
+<div id="header">
+    <h1 id="title">HrajPoker.aspifyhost.cz</h1>
+
+    <div class="tooltip">
+        <h2 id="key" onmouseout="outFunc()">@Model.Key</h2>
+        <span class="tooltiptext" id="myTooltip">Zkopíruj</span>
+    </div>
+
+    <h2 id="name">@Model.Name</h2>
+</div>
+
+<div id="grid"></div>
+
+<button id="nextCardBtn" class="btn">></button>
+<button id="previousCardBtn" class="btn"><</button>
+
+<div id="controlButtons">
+    <div class="buttonsContainer">
+        <button class="Playbuttons btn" id="Fold">Fold</button>
+        <button class="Playbuttons btn" id="Check">Check</button>
+        <button class="Playbuttons btn" id="Raise">Raise</button>
+    </div>
+
+    <button id="PlayButton" class="btn" style=" display: none; ">Hraj</button>
+
+    <div class="rangeContainer">
+        <input type="range" min="0" max="100" value="50" class="Playbuttons" id="Range" step="5">
+        <p class="Playbuttons value"><span id="demo"></span></p>
+    </div>
+</div>
+
+<h1 id="waitingText">Čekání na hráče a zahájení hry&#0133;</h1>
+
+<!--<div class="chatContainer">
+    <div class="container">
+        <div class="row">
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Odeslat" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>-->
+
+<script type="text/javascript">
+    var slider = document.getElementById("Range");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+
+    $("#key").click(function () {
+        clickFunction();
+    });
+
+    function clickFunction() {
+        var text = document.getElementById("key");
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        //add to clipboard.
+        document.execCommand('copy');
+
+        window.getSelection().removeAllRanges();
+
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Zkopírováno";
+    }
+
+    function outFunc() {
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Zkopíruj";
+    }
+</script>

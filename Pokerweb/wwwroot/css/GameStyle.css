@@ -1,0 +1,212 @@
+﻿html {
+    overflow: hidden;
+}
+body {
+    overflow: hidden;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto auto 160px;
+    height: 100vh;
+    background-image: url("../Images/Img/monowoodbg.jpg");
+    background-position: center;
+}
+#backGround {
+    min-height: 100%;
+    min-width: 100%;
+    z-index: -1;
+    position: absolute;
+    top:0;
+    left:0;
+}
+#header {
+    height: 60px;
+    padding: 15px;
+    background-color: rgba(91, 99, 159, 0.2);
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 33% 33% 33%;
+    justify-items: center;
+    align-items: center;
+    color: white;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
+    grid-row:1;
+}
+h2 {
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+h1 {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 48px;
+    margin: 0;
+    padding: 0;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+#name {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+}
+#key {
+    grid-column: 3;
+    grid-row: 1;
+    width: auto;
+}
+#title {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+}
+
+#controlButtons {
+    width: 100%;
+    text-align: center;
+    grid-row: 3;
+    text-align: center;
+}
+.btn:hover {
+    background-color: white;
+    color: rgba(91, 99, 159, 1.00);
+    border: 3px solid rgba(91, 99, 159, 1.00);
+}
+.btn {
+    background-color: rgba(91, 99, 159, 1.00);
+    color: white;
+    font-size: 32px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    margin: 3px;
+}
+input[type=button], input[type=submit], input[type=reset] {
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 2px;
+}
+.rangeContainer {
+    width: auto;
+    padding: 15px;
+    opacity: 0.7;
+    -webkit-transition: .4s;
+    transition: opacity .4s;
+}
+
+.rangeContainer:hover {
+    opacity: 1;
+}
+
+#Range {
+    -webkit-appearance: none;
+    width: 250px;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+}
+
+#Range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    border: 3px solid rgba(91, 99, 159, 1.00);
+    cursor: pointer;
+}
+
+.value {
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: 36px;
+    color: #fff;
+    margin:0;
+    margin-top: 15px;
+}
+#PlayButton {
+    background-color: rgb(195, 40, 40);
+    height: 100px;
+    width: 170px;
+    border-radius: 15px;
+}
+#PlayButton:hover{
+    background-color: white;
+    border: 3px solid rgb(195, 40, 40);
+    color: rgb(195, 40, 40);
+}
+
+/*dfsd*/
+
+.tooltip {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  font-family: Arial;
+  font-size: 16px;
+  width: auto;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  position: absolute;
+  z-index: 1;
+  top: 107%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+  transform: rotate(180deg);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+#grid {
+    height: 60vh;
+    overflow: visible;
+    grid-row: 2;
+}
+
+#waitingText {
+    font-family: Arial;
+    font-size: 46px;
+    font-weight: bold;
+    color: rgb(195, 40, 40);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*------Chat------*/
+
+.chatContainer {
+    background: white;
+    position: absolute;
+}

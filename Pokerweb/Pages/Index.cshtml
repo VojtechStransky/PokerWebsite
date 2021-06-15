@@ -1,0 +1,27 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Pokerweb.Pages.IndexModel
+@{
+    ViewData["Title"] = "HrajPoker";
+}
+@section Styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/IndexStyle.css")" type="text/css" />
+}
+@{Layout = "_Layout.cshtml";}
+
+<img src="@Url.Content("~/Images/Img/bg.jpg")" id="backGround"/>
+
+<div class="container">
+    <h1 class="header">HrajPoker.aspifyhost.cz</h1>
+
+    <form method="post" class="form">
+
+        <input type="text" asp-for="NameIn" class="inp" id="nameInput" placeholder="Jméno" />
+        <input type="text" asp-for="KeyIn" class="inp" id="keyInput" placeholder="Klíč" />
+        <button asp-page-handler="in" class="btn" id="inBtn">Připoj se</button>
+        <button asp-page-handler="new" class="btn" id="newBtn">Založ místnost</button>
+
+    </form>
+
+    <h3 class="message">@Model.Message</h3>
+</div>

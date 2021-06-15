@@ -1,0 +1,154 @@
+﻿@using Pokerweb.Models
+@model Room
+
+@if (Model.Playing != null)
+{
+    <div>
+        <div id="container" class="slide">
+            @{
+                int count = Model.Winners.Count;
+                if (count > 0)
+                {
+                    if (count == 1)
+                    {
+                        if (Model.endedCase == -1)
+                        {
+                            <h1 class="winMessage"><b>@Model.Winners[0]</b> vyhrál celou hru!</h1>
+                        }
+                        else
+                        {
+                            <h1 class="winMessage"><b>@Model.Winners[0]</b> vyhrál!</h1>
+
+                            <table class="iconHolder">
+                                <tr>
+                                    <td><img src="/Images/Img/Money/Bet.png" class="icon"/></td>
+                                    <td><h3 id="sum">@Model.Sum</h3></td>
+                                </tr>
+                            </table>
+                        }
+                    }
+                    else
+                    {
+                        string result = "";
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            string pre = "";
+
+                            if (i == count - 1)
+                            {
+                                pre = " a ";
+                            }
+                            else if (i != 0)
+                            {
+                                pre = ", ";
+                            }
+                            else
+                            {
+                                result += (pre + Model.Winners[i]);
+                            }
+                        }
+
+                        <h1 class="winMessage"><b>@result</b> vyhráli!</h1>
+
+                        <table class="iconHolder">
+                            <tr>
+                                <td><img src="/Images/Img/Money/Bet.png" class="icon" /></td>
+                                <td><h3 id="sum">@Model.Sum</h3></td>
+                            </tr>
+                        </table>
+                    }
+
+                    <div class="cardHolder">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <img src="@Url.Content("~/Images/Cards/" + Model.Cards[i] + ".png")" class="rCard" />
+                        }
+                    </div>
+
+                    Player player = Model.Players.Find(x => x.PlayerName == Model.Winners[0]);
+
+                    <div class="pContainer">
+                        <div id="pCards">
+                            <img src="@Url.Content("~/Images/Cards/" + @player.Cards[0] + ".png")" class="pCard" />
+                            <img src="@Url.Content("~/Images/Cards/" + @player.Cards[1] + ".png")" class="pCard" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p id="inGame" style="display:none">@Model.InGame</p>
+
+                    <p class="message">@Model.Message</p>
+
+                    <table class="iconHolder">
+                        <tr>
+                            <td><img src="/Images/Img/Money/Bet.png" class="icon" /></td>
+                            <td><h3 id="sum">@Model.Sum</h3></td>
+                        </tr>
+                    </table>
+
+                    @if (Model.Round > 0)
+                    {
+                        <div class="cardHolder">
+                            @for (int i = 0; i < Model.Round + 2; i++)
+                            {
+                                if (i <= 5)
+                                {
+                                    <img src="@Url.Content("~/Images/Cards/" + Model.Cards[i] + ".png")" class="rCard" />
+                                }
+                            }
+                        </div>
+                    }
+
+                    var thisPlayer = @Model.Players.Find(x => x.PlayerName == Model.PagePartialHelper);
+                    int y = 0;
+
+                    foreach (var player in Model.Players)
+                    {
+                        string id = y.ToString();
+                        string display = "none";
+                        y++;
+
+                        if (player.PlayerName == Model.Playing)
+                        {
+                            display = "block";
+                            <p id="actual" style="display:none">@id</p>
+                        }
+
+                        <div class="pContainer" id="@id" style="display: @display">
+                            <div id="pCards">
+                                @if ((player == thisPlayer) || (Model.Winners.Count > 0))
+                                {
+                                    <img src="@Url.Content("~/Images/Cards/" + @player.Cards[0] + ".png")" class="pCard" />
+                                    <img src="@Url.Content("~/Images/Cards/" + @player.Cards[1] + ".png")" class="pCard" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Images/Cards/b.png")" class="pCard" />
+                                    <img src="@Url.Content("~/Images/Cards/b.png")" class="pCard" />
+                                }
+                            </div>
+
+                            <div class="playerInfo">
+                                <h1 id="pHeading">@player.PlayerName</h1>
+                                <table class="iconHolder">
+                                    <tr>
+                                        <td><img src="Images/Img/Money/Flying.png" class="icon" /></td>
+                                        <td><h2 id="pMoney">@player.Money</h2></td>
+                                    </tr>
+                                </table>
+                                <table class="iconHolder">
+                                    <tr>
+                                        <td><img src="Images/Img/Money/myMoney.png" class="icon" /></td>
+                                        <td><h2 id="pMoneyFinal">@player.MoneyFinal</h2></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+}
