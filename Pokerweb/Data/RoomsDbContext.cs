@@ -13,7 +13,7 @@ namespace Pokerweb.Data
             {
                 foreach (var x in RoomsList)
                 {
-                    if ((DateTime.Now - x.TimeStamp).Minutes > 10)
+                    if ((DateTime.Now - x.TimeStamp).Minutes > 100)
                     {
                         RoomsList.Remove(x);
                     }

@@ -19,31 +19,32 @@ namespace Pokerweb.Pages
 {
     public class GamePageModel : PageModel
     {
-        public string Name { get; set; }
         public int Key { get; set; }
-        public Room Room { get; set; }
-        public Player Player { get; set; }
+        public string Name { get; set; }
 
-        public IActionResult OnGet(string key, string name)
+        public IActionResult OnGet(string _key, string name)
         {
-            Regex rgxNum = new Regex("^[0-9]*$");
-            bool isNum = rgxNum.IsMatch(key);
-
             Name = name;
-            Player player;
+            Regex rgxNum = new Regex("^[0-9]*$");
+            bool isNum = rgxNum.IsMatch(_key);
+            Room room = new Room();
+            List<Player> players = new List<Player>();
+            Player player = new Player();
 
             if (isNum)
             {
-                Key = Convert.ToInt32(key);
+                Key = Convert.ToInt32(_key);
+                room = RoomsDbContext.RoomsList.Find(x => x.KeyNumber == Key);
             }
             else
             {
                 return RedirectToPage("Index");
             }
 
-            if (RoomsDbContext.RoomsList.Find(x => x.KeyNumber == Key) != null)
+            if (room != null)
             {
-                player = RoomsDbContext.RoomsList.Find(x => x.KeyNumber == Key).Players.Find(x => x.PlayerName == name);
+                players = room.Players;
+                player = players.Find(x => x.PlayerName == Name);
             }
             else
             {
@@ -64,25 +65,27 @@ namespace Pokerweb.Pages
 
         public PartialViewResult OnGetPlayersPartial(string key, string name)
         {
-            Key = Convert.ToInt32(key);
-            Room = RoomsDbContext.RoomsList.Find(x => x.KeyNumber == Key);
-            Room room = Room.ShallowCopy();
+            int _key = Convert.ToInt32(key);
+            Room roomOrig = RoomsDbContext.RoomsList.Find(x => x.KeyNumber == _key);
+            Room room = roomOrig.ShallowCopy();
             room.PagePartialHelper = name;
+
             PartialViewResult _resultPartialPage = new PartialViewResult()
             {
                 ViewName = "_PlayersPartial",
                 ViewData = new ViewDataDictionary<Room>(ViewData, room),
             };
+
             return _resultPartialPage;
         }
 
         public void OnGetClose(string key, string name)
         {
-            Key = Convert.ToInt32(key);
-            Name = name;
-            Player = RoomsDbContext.RoomsList.Find(x => x.KeyNumber == Key).Players.Find(x => x.PlayerName == name);
-            Player.InGame = false;
-            Player.Left = true;
+            int _key = Convert.ToInt32(key);
+            Room room = RoomsDbContext.RoomsList.Find(x => x.KeyNumber == _key);
+            Player player = room.Players.Find(x => x.PlayerName == name);
+            player.InGame = false;
+            player.Left = true;
         }
 
     }

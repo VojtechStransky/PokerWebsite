@@ -56,7 +56,6 @@ namespace Pokerweb.Models
             } 
         }
 
-        //metod
         public void AddPlayer(Player player)
         {
             player.Cards = GetChunk(2);
