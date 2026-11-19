@@ -29,7 +29,3 @@ others join with it, and the game runs in real time over SignalR.
 ```
 dotnet run --project Pokerweb
 ```
-
-The project targets .NET Core 3.1, which is no longer supported. A current
-SDK builds it with a warning; running it needs the 3.1 runtime or a retarget
-in `Pokerweb/Pokerweb.csproj`.
