@@ -33,12 +33,3 @@ dotnet run --project Pokerweb
 The project targets .NET Core 3.1, which is no longer supported. A current
 SDK builds it with a warning; running it needs the 3.1 runtime or a retarget
 in `Pokerweb/Pokerweb.csproj`.
-
-## Known limits
-
-This is early work and is kept as it was written:
-
-- The evaluator tries only hands that use both of a player's cards, not
-  the best five of seven, and does not know the A-2-3-4-5 straight.
-- The server trusts the player name sent by the browser.
-- All state is in memory and is lost on restart.
